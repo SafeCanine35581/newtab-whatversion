@@ -285,13 +285,7 @@ async function loadBackgroundSettings() {
                             } else {
                                 videoBackground.autoplay = true
                             }
-                            if (backgroundData.muted === false) {
-                                videoBackground.muted = false
-                                videoBackgroundAudioButton.innerHTML = "<i class=\"bi bi-volume-up\" aria-hidden=\"true\"></i> Unmute video background</a>"
-                            } else {
-                                videoBackground.muted = true
-                                videoBackgroundAudioButton.innerHTML = "<i class=\"bi bi-volume-mute\" aria-hidden=\"true\"></i> Mute video background</a>"
-                            }
+                            videoBackground.muted = true
                             videoBackground.loop = true
                             videoBackground.playsInline = true
                             videoBackground.tabIndex = -1
@@ -301,6 +295,7 @@ async function loadBackgroundSettings() {
                             videoBackground.appendChild(videoBackgroundSource)
                             backgroundElement.appendChild(videoBackground)
                             videoBackgroundToggleButton.parentElement.hidden = false
+                            videoBackgroundAudioButton.parentElement.hidden = false
                             videoBackgroundToggleButton.addEventListener("click", (event) => {
                                 event.preventDefault()
                                 if (videoBackground.paused === false) {
@@ -312,6 +307,16 @@ async function loadBackgroundSettings() {
                                     videoBackground.play()
                                     videoBackgroundToggleButton.innerHTML = "<i class=\"bi bi-pause-circle\" aria-hidden=\"true\"></i> Pause video background</a>"
                                     chrome.storage.local.remove(["secretSettings_customBackgroundVideoPosition"])
+                                }
+                            })
+                            videoBackgroundAudioButton.addEventListener("click", (event) => {
+                                event.preventDefault()
+                                if (videoBackground.muted === true) {
+                                    videoBackground.muted = false
+                                    videoBackgroundAudioButton.innerHTML = "<i class=\"bi bi-volume-mute\" aria-hidden=\"true\"></i> Mute video background</a>"
+                                } else {
+                                    videoBackground.muted = true
+                                    videoBackgroundAudioButton.innerHTML = "<i class=\"bi bi-volume-up\" aria-hidden=\"true\"></i> Unmute video background</a>"
                                 }
                             })
                         }
