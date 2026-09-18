@@ -285,11 +285,12 @@ async function loadBackgroundSettings() {
                             } else {
                                 videoBackground.autoplay = true
                             }
-                            if (backgroundData.muted === true) {
+                            if (backgroundData.muted === false) {
+                                videoBackground.muted = false
+                                videoBackgroundAudioButton.innerHTML = "<i class=\"bi bi-volume-up\" aria-hidden=\"true\"></i> Unmute video background</a>"
+                            } else {
                                 videoBackground.muted = true
                                 videoBackgroundAudioButton.innerHTML = "<i class=\"bi bi-volume-mute\" aria-hidden=\"true\"></i> Mute video background</a>"
-                            } else {
-                                videoBackground.muted = false
                             }
                             videoBackground.loop = true
                             videoBackground.playsInline = true
